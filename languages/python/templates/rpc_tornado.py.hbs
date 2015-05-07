@@ -1,0 +1,64 @@
+import os,json,urllib
+
+class LL_API:
+  def __init__(self,url_prefix,auth_query={},access_token=None):
+    self.url_prefix = url_prefix
+    self.auth_query=dict(auth_query)
+    if access_token:
+      self.auth_query['access_token'] = access_token
+      pass
+    pass
+  #each allMethods
+  {{#each allMethods}}{{getUriList resource}}
+  def rpc{{flatPath resource}}_{{method}}(self,
+    {{#each resource.uriList}}{{displayName}}=None,{{/each}}#uri
+    {{#each queryParameters}}{{@key}}=None,{{/each}}#query
+    {{#each body}}{{#each formParameters}}{{@key}}=None,{{/each}}{{/each}}#form
+    ):
+    ###
+    path='{{fullPath resource}}'
+    url=self.url_prefix+path
+{{#resource.uriList}}
+    url=url.replace('{%s}'%'{{displayName}}',{{displayName}})
+{{/resource.uriList}}
+    query={}
+    [ query.__setitem__(k,v) for k,v in self.auth_query.iteritems() if False ]
+{{#each queryParameters}}
+    if {{@key}} is not None:
+      query['{{@key}}']={{@key}}
+      pass
+{{/each}}
+    url=self.url_prefix
+    qstr='&'.join([(str(k)+'='+str(v)) for k,v in query.iteritems()])
+    if qstr: qstr='?'+qstr
+    if '{{method}}' in ('post','put'):
+      headers = {"Content-type": "application/x-www-form-urlencoded",
+                 "Accept": "text/plain"}
+      form={}
+{{#each body}}{{#each formParameters}}
+      if {{@key}} is not None:
+        form['{{@key}}']={{@key}}
+        pass
+{{/each}}{{/each}}
+      body = urllib.urlencode(form)
+    else:
+      headers = {}
+      form = None
+      body = None
+      pass
+
+    # This should use some kind of Future.  Maybe pass in the constructor.
+    return http_client.fetch(url+qstr, handle_request,
+        method='{{method}}'.upper(),body=body)
+
+  {{/each}}
+  pass # end class LL_API
+
+if __name__=='__main__':
+  import tornado.ioloop
+  from tornado.httpclient import AsyncHTTPClient
+  http_client = AsyncHTTPClient() # we initialize our http client instance
+  tornado.ioloop.IOLoop.instance().start() # start the tornado ioloop to
+                    # listen for events
+
+#EOF

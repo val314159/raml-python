@@ -1,0 +1,144 @@
+#!/usr/bin/python
+
+import requests,json
+
+def wrongType(var,typ):
+    #print "wrongType"+repr((var,typ))
+    try:
+        if typ=='integer':
+            int(var)
+        elif typ=='number':
+            float(var)
+            pass
+        return False
+    except:
+        return True
+    pass
+
+true,false=True,False
+
+class RequestsAPI(object):
+  def __init__(self,auth_query={},access_token=None):
+    self.auth_query=dict(auth_query)
+    self.baseUri='{{baseUri}}'
+    self.version='{{version}}'
+    self.prefixUri=self.baseUri.replace('{version}',self.version)
+    if access_token:
+      self.auth_query['access_token'] = access_token
+      pass
+    pass
+{{#each allMethods}}
+  def rpc{{flatPath resource}}_{{method}}(self,
+  {{#each resource.uriParameters}}{{displayName}}=None,{{/each}} #uri
+  {{#each queryParameters}}{{@key}}=None,{{/each}} # query
+  {{#each body}}{{#each formParameters}}{{@key}}=None,{{/each}}{{/each}} # form
+  ):
+    """
+  {{{description}}}
+    """
+    path='{{fullPath resource}}'
+
+    uri=self.prefixUri+path
+    {{#each resource.uriList}}
+    uri=uri.replace('{'+'{{displayName}}'+'}',{{displayName}})
+    {{/each}}
+
+    ###
+    #  put field validation here
+    ###
+    {{#each resource.uriList}}
+    print "uCHECK {{displayName}}"
+    if {{displayName}} is None:
+      if bool({{required}}):
+        raise "MISSING"
+    else:
+      if wrongType({{displayName}},'{{type}}'):
+        raise "WRONGTYPE"
+    {{/each}}
+
+    {{#each queryParameters}}
+    print "qCHECK {{displayName}}"
+    if {{displayName}} is None:
+      if bool({{required}}):
+        raise "MISSING"
+    else:
+      if wrongType({{displayName}},'{{type}}'):
+        raise "WRONGTYPE"
+    {{/each}}
+
+    {{#each body}}
+        {{#each formParameters}}
+    print "fCHECK {{displayName}}"
+    if {{displayName}} is None:
+      if bool({{required}}):
+        raise "MISSING"
+    else:
+      if wrongType({{displayName}},'{{type}}'):
+        raise "WRONGTYPE"
+        {{/each}}
+    {{/each}}
+    ###
+    #  end field validation here
+    ###
+
+    access_token = self.auth_query.get('access_token')
+
+    query={}
+    if access_token:
+      query['access_token'] = access_token
+      pass
+    {{#each queryParameters}}
+    if {{@key}} is not None:
+      query['{{@key}}']={{@key}}
+    {{/each}}
+
+    qstr='&'.join([(str(k)+'='+str(v)) for k,v in query.iteritems()])
+    if qstr: qstr='?'+qstr
+
+    body = None
+    if '{{method}}' in ('post','put','patch'):
+       form={}
+    {{#each body}}
+        {{#each formParameters}}
+       if {{@key}} is not None:
+         form['{{@key}}']={{@key}}
+        {{/each}}
+    {{/each}}
+       body = urllib.urlencode(form)
+       pass
+    print "GO", repr(uri+qstr)
+    return requests.{{method}}(uri+qstr,data=body)
+
+{{/each}}
+
+def main():
+    access_token='185651424.06e610f.3bd9116b82b2448395ca411d2e13bc39'
+    print "main1"
+    api = RequestsAPI(access_token=access_token)
+    print "main2"
+    ret = api.rpc_media_popular_get()
+    print "main3", ret
+    print "main3", dir(ret)
+    if ret.status_code == requests.codes.ok:
+        print "WE ARE GOOD"
+    else:
+        print "OMG WE SUCK"
+        pass
+    pass
+
+def test():
+    access_token='185651424.06e610f.3bd9116b82b2448395ca411d2e13bc39'
+    api = RequestsAPI(access_token=access_token)
+    pass
+
+class Test:
+    def setup(_):
+        _.access_token='185651424.06e610f.3bd9116b82b2448395ca411d2e13bc39'
+        _.api = RequestsAPI(access_token=_.access_token)
+        pass
+
+    def test(_):
+        ret = _.api.rpc_media_popular_get()
+        assert ret.status_code == requests.codes.ok
+
+if __name__=='__main__': test()

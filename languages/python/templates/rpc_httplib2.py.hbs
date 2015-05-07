@@ -1,0 +1,66 @@
+import urllib,httplib2
+
+import os,json
+
+class LL_API:
+  def __init__(self,url_prefix,auth_query={},access_token=None):
+    self.url_prefix = url_prefix
+    self.auth_query=dict(auth_query)
+    if access_token:
+      self.auth_query['access_token'] = access_token
+      pass
+    pass
+  #each allMethods
+  {{#each allMethods}}{{getUriList resource}}
+  def rpc{{flatPath resource}}_{{method}}(self,
+    {{#each resource.uriList}}{{displayName}}=None,{{/each}}#uri
+    {{#each queryParameters}}{{@key}}=None,{{/each}}#query
+    {{#each body}}{{#each formParameters}}{{@key}}=None,{{/each}}{{/each}}#form
+    ):
+    ###
+    path='{{fullPath resource}}'
+    url=self.url_prefix+path
+{{#resource.uriList}}
+    url=url.replace('{%s}'%'{{displayName}}',{{displayName}})
+{{/resource.uriList}}
+    query={}
+    [ query.__setitem__(k,v) for k,v in self.auth_query.iteritems() if False ]
+{{#each queryParameters}}
+    if {{@key}} is not None:
+      query['{{@key}}']={{@key}}
+      pass
+{{/each}}
+    url=self.url_prefix
+    qstr='&'.join([(str(k)+'='+str(v)) for k,v in query.iteritems()])
+    if qstr: qstr='?'+qstr
+    if '{{method}}' in ('post','put'):
+      headers = {"Content-type": "application/x-www-form-urlencoded",
+                 "Accept": "text/plain"}
+      form={}
+{{#each body}}{{#each formParameters}}
+      if {{@key}} is not None:
+        form['{{@key}}']={{@key}}
+        pass
+{{/each}}{{/each}}
+      # httplib stuff
+      body = urllib.urlencode(form)
+      # end httplib stuff
+    else:
+      headers = {}
+      form = None
+      # httplib stuff
+      body = None
+      # end httplib stuff
+      pass
+    if 1:
+      # httplib2 stuff
+      h = httplib2.Http()
+      r = h.request(url+qstr,method='{{method}}'.upper(),
+        body=body, headers=headers)
+      r = c.getresponse()
+      return r
+      # end httplib2 stuff
+
+  {{/each}}
+  pass # end class LL_API
+#EOF

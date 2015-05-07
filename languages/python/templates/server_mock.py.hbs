@@ -1,0 +1,56 @@
+{{#each allMethods}}{{getUriList resource}}{{/each}}
+
+{{importJson . "languages/python/qwert.json" "qwert"}}
+
+def wrongType(var,typ):
+    try:
+        if typ=='integer':
+            int(var)
+        elif typ=='number':
+            float(var)
+            pass
+        return False
+    except:
+        return True
+    pass
+
+true,false=True,False
+
+class Mock_API:
+  {{#each allMethods}}
+  def rpc{{flatPath resource}}_{{method}}(self,
+    {{#each resource.uriList}}{{displayName}}=None,{{/each}}#uri
+    {{#each queryParameters}}{{@key}}=None,{{/each}}#query
+    {{#each body}}{{#each formParameters}}{{@key}}=None,{{/each}}{{/each}}#form
+    ):
+    ###
+    #  put logic here
+    ###
+{{#each resource.uriList}}
+    if bool({{required}}) and {{displayName}} is None:
+      raise "MISSING"
+    if wrongType({{displayName}},'{{type}}'):
+      raise "WRONGTYPE"
+{{/each}}
+
+{{#each queryParameters}}
+    if bool({{required}}) and {{displayName}} is None:
+      raise "MISSING"
+    if wrongType({{displayName}},'{{type}}'):
+      raise "WRONGTYPE"
+{{/each}}
+
+{{#each body}}
+{{#each formParameters}}
+    if bool({{required}}) and {{displayName}} is None:
+      raise "MISSING"
+    if wrongType({{displayName}},'{{type}}'):
+      raise "WRONGTYPE"
+{{/each}}
+{{/each}}
+    ###
+    return ['hello world']
+
+  {{/each}}
+  pass # end class Mock_API
+#EOF

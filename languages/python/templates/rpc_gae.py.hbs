@@ -1,0 +1,142 @@
+qq
+
+{{importJson . "languages/python/qwert.json" "qwert"}}
+
+ww
+
+{{keys .}}
+
+===
+
+{{id}} == {{qwert}} == {{baseUri}}
+
+ee
+
+{{qwert}}
+
+rr
+
+{{qwert.q}}
+
+{{stringify qwert.w}}
+
+tt
+
+import gevent.monkey;gevent.monkey.patch_all()
+import geventhttpclient.httplib;geventhttpclient.httplib.patch()
+from geventhttpclient.httplib import HTTPConnection,HTTPSConnection
+import requests
+import urllib,urllib2,httplib
+import urllib,httplib2
+
+import os,json
+
+def handle_request(response):
+    '''callback needed when a response arrive'''
+    if response.error:
+        print "Error:", response.error
+    else:
+        print 'called'
+        print response.body
+
+if __name__=='__main__':
+  import tornado.ioloop
+  from tornado.httpclient import AsyncHTTPClient
+  http_client = AsyncHTTPClient() # we initialize our http client instance
+  #tornado.ioloop.IOLoop.instance().start() # start the tornado ioloop to
+                    # listen for events
+
+class LL_API:
+  def __init__(self,url_prefix,auth_query={},access_token=None):
+    self.url_prefix = url_prefix
+    self.auth_query=dict(auth_query)
+    if access_token:
+      self.auth_query['access_token'] = access_token
+      pass
+    pass
+  #each allMethods
+  {{#each allMethods}}{{getUriList resource}}
+  def rpc{{flatPath resource}}_{{method}}(self,
+    {{#each resource.uriList}}{{displayName}}=None,{{/each}}#uri
+    {{#each queryParameters}}{{@key}}=None,{{/each}}#query
+    {{#each body}}{{#each formParameters}}{{@key}}=None,{{/each}}{{/each}}#form
+    ):
+    ###
+    path='{{fullPath resource}}'
+    url=self.url_prefix+path
+{{#resource.uriList}}
+    url=url.replace('{%s}'%'{{displayName}}',{{displayName}})
+{{/resource.uriList}}
+    query={}
+    [ query.__setitem__(k,v) for k,v in self.auth_query.iteritems() if False ]
+{{#each queryParameters}}
+    if {{@key}} is not None:
+      query['{{@key}}']={{@key}}
+      pass
+{{/each}}
+    url=self.url_prefix
+    qstr='&'.join([(str(k)+'='+str(v)) for k,v in query.iteritems()])
+    if qstr: qstr='?'+qstr
+    if '{{method}}' in ('post','put'):
+      headers = {"Content-type": "application/x-www-form-urlencoded",
+                 "Accept": "text/plain"}
+      form={}
+{{#each body}}{{#each formParameters}}
+      if {{@key}} is not None:
+        form['{{@key}}']={{@key}}
+        pass
+{{/each}}{{/each}}
+      # httplib stuff
+      body = urllib.urlencode(form)
+      # end httplib stuff
+    else:
+      headers = {}
+      form = None
+      # httplib stuff
+      body = None
+      # end httplib stuff
+      pass
+    if 1:
+      # requests stuff
+      return requests.{{method}}(url+qstr,data=body,headers=headers)
+      # end requests stuff
+    elif 2:
+      # httplib2 stuff
+      h = httplib2.Http()
+      r = h.request(url+qstr,method='{{method}}'.upper(),
+        body=body, headers=headers)
+      r = c.getresponse()
+      return r
+      # end httplib2 stuff
+    elif 3:
+      # This should use some kind of Future.  Maybe pass in the constructor.
+      http_client.fetch(url+qstr, handle_request, method='{{method}}'.upper(),body=body)
+    elif 4:
+      import urlfetch
+      return urlfetch.request(url+qstr, method='{{method}}'.upper(), data=body)
+    elif 5:
+      # google app engine sync
+      from google.appengine.api.urlfetch import fetch
+      return fetch(url+qstr, method='{{method}}'.upper(), payload=body)
+    elif 6:
+      # google app engine async
+      from google.appengine.api.urlfetch import create_rpc, make_fetch_call
+      rpc = create_rpc()
+      return make_fetch_call(rpc, url+qstr, method='{{method}}'.upper(), payload=body)
+    else:
+      # httplib stuff
+      import urllib2
+      req = urllib2.Request(self.url_prefix)
+      if req.get_type()=='https':
+        h = httplib.HTTPSConnection(host=req.host(), port=req.port() )
+      else:
+        h = httplib.HTTPConnection( host=req.host(), port=req.port() )
+        pass
+      whole_path = self.path_prefix+path+qstr
+      r = h.request('{{method}}'.upper(),whole_path,body,headers)
+      r = c.getresponse()
+      return r
+      # end httplib stuff
+  {{/each}}
+  pass # end class LL_API
+#EOF
