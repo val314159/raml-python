@@ -4,15 +4,10 @@
  * @param  {Object} resource
  * @return {String}
  */
-function lalala(resource) {
+function flatPath(resource) {
     if (resource.key===undefined) {
 	return '';
-    }/*
-    var context = this;
-    var arr=[];
-    for (var k in resource){
-	arr.push(k);
-    }*/
+    }
     var relUri = resource.relativeUri;
     var uriParameters = resource.uriParameters;
     for (var n=0; n<uriParameters.length; n++) {
@@ -24,8 +19,7 @@ function lalala(resource) {
     return uri+relUri;
 }
 module.exports = function (resource) {
-    //var context = this;
-    var uri = lalala(resource);
+    var uri = flatPath(resource);
     uri=uri.replace(/\//g,'_');
     uri=uri.replace(/-/g,'_');
     uri=uri.replace(/{/g,'_');
