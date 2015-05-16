@@ -1,94 +1,68 @@
 {
-  "name": "raml-client-generator",
-  "version": "0.0.6",
-  "description": "Template-driven generator of clients for APIs described by RAML",
-  "main": "languages/index.js",
+  "name": "raml-python",
+  "version": "0.0.2",
+  "description": "Generate Python APIs for popular clients and servers from RAML",
+  "main": "raml-python-generator.js",
   "files": [
-    "languages/",
-    "lib/",
+    "raml-python-generator.js",
     "bin/",
+    "templates/",
     "LICENSE"
   ],
-  "browser": {
-    "http": false,
-    "handlebars": false
-  },
-  "browserify": {
-    "transform": [
-      "hbsfy"
-    ]
+  "bin": {
+    "raml-python": "bin/raml-python-generator.js"
   },
   "scripts": {
-    "test": "gulp test",
-    "test-ci": "gulp test --ci",
-    "build": "browserify . -s ramlClientGenerator -o dist/raml-client-generator.js && uglifyjs dist/raml-client-generator.js -o dist/raml-client-generator.min.js",
-    "stage-build": "git add dist"
+    "lint" : "standard",
+    "test" : "npm run lint && gulp test"
   },
-  "pre-commit": [
-    "build",
-    "stage-build",
-    "test"
-  ],
+  "standard": {
+    "ignore": [
+      "converage/**",
+      "node_modules/**",
+      "bower_components/**"
+    ]
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mulesoft/raml-client-generator.git"
-  },
-  "bin": {
-    "raml-to-client": "bin/raml-client.js"
+    "url": "git://github.com/val314159/raml-python"
   },
   "keywords": [
     "raml",
     "client",
-    "generator",
-    "javascript"
+    "server",
+    "api",
+    "python",
+    "interface",
   ],
-  "author": "MuleSoft, Inc.",
-  "license": "Apache 2.0",
+  "author": "Joel Ward",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/mulesoft/raml-client-generator/issues"
+    "url": "https://github.com/val314159/raml-python/issues",
   },
-  "homepage": "https://github.com/mulesoft/raml-client-generator",
+  "homepage": "https://github.com/val314159/raml-python",
   "devDependencies": {
-    "browserify": "^8.0.2",
+    "camel-case": "^1.1.1",
     "chai": "^2.0.0",
-    "concat-stream": "^1.4.6",
-    "es6-promise": "^2.0.0",
-    "express": "^4.10.0",
-    "gulp": "^3.8.8",
-    "gulp-jshint": "^1.8.4",
-    "hbsfy": "^2.2.1",
-    "karma": "^0.12.23",
-    "karma-chrome-launcher": "^0.1.4",
-    "karma-firefox-launcher": "^0.1.3",
-    "karma-mocha": "^0.1.9",
+    "es6-promise": "^2.1.1",
+    "express": "^4.12.3",
+    "gulp": "^3.8.11",
+    "is-travis": "^1.0.0",
+    "istanbul": "^0.3.5",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.8",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.10",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-sinon-chai": "^0.3.0",
-    "mocha": "^2.0.1",
-    "nock": "^0.59.1",
-    "pre-commit": "^1.0.4",
-    "require-dir": "^0.1.0",
-    "stream-equal": "^0.1.5"
+    "methods": "^1.1.1",
+    "mocha": "^2.1.0",
+    "nock": "^0.9.1",
+    "pre-commit": "^1.0.6",
+    "standard": "^2.1.1"
   },
   "dependencies": {
-    "bluebird": "^2.3.2",
-    "camel-case": "^1.0.2",
-    "constant-case": "^1.0.0",
-    "dot-case": "^1.0.1",
-    "extend": "^2.0.0",
-    "handlebars": "^3.0.0",
-    "indent-string": "^1.1.0",
-    "javascript-stringify": "^1.0.0",
-    "lower-case": "^1.0.2",
-    "methods": "^1.1.1",
-    "minimist": "^1.1.0",
-    "mkdirp": "^0.5.0",
-    "object.pick": "^1.1.0",
-    "param-case": "^1.0.1",
-    "pascal-case": "^1.0.0",
-    "raml-parser": "^0.8.10",
-    "raml-generator": "^0.1.1",
-    "snake-case": "^1.0.1",
-    "upper-case": "^1.0.3",
-    "yargs": "^3.0.4"
+    "javascript-stringify": "^1.0.1",
+    "raml-generator": "^0.1.3"
   }
 }
