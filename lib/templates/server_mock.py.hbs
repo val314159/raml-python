@@ -1,7 +1,5 @@
 {{#each allMethods}}{{getUriList resource}}{{/each}}
 
-{{importJson . "languages/python/qwert.json" "qwert"}}
-
 def wrongType(var,typ):
     try:
         if typ=='integer':
