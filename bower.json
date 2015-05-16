@@ -1,20 +1,16 @@
 {
-  "name": "raml-python",
-  "version": "0.0.2",
-  "homepage": "https://github.com/val314159/raml-python",
-  "main": "raml-python-generator.js",
+  "name": "raml-client-generator",
+  "version": "0.0.6",
+  "homepage": "https://github.com/mulesoft/raml-client-generator",
   "authors": [
-    "Joel Ward"
+    "MuleSoft, Inc."
   ],
-  "description": "Generate Python APIs for popular clients and servers from RAML",
-  "main": "dist/raml-python.js",
+  "description": "Template-driven generator of clients for APIs described by RAML",
+  "main": "dist/raml-client-generator.js",
   "keywords": [
     "raml",
     "client",
-    "server",
-    "api",
-    "python",
-    "interface",
+    "generator"
   ],
   "license": "Apache 2.0",
   "ignore": [
