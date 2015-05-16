@@ -15,7 +15,7 @@ function flatPath(resource) {
 	relUri=relUri.replace('{'+n+'}',
 			      '{'+val.displayName+'}');
     }
-    var uri = lalala(resource.parent);
+    var uri = flatPath(resource.parent);
     return uri+relUri;
 }
 module.exports = function (resource) {
