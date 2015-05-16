@@ -8,22 +8,26 @@ function read (path) {
 
 module.exports = generator({
   templates: {
-    '.gitignore': read('templates/.gitignore.hbs'),
-    'index.js': read('templates/index.js.hbs'),
-    'README.md': read('templates/README.md.hbs'),
-    'INSTALL.md': read('templates/INSTALL.md.hbs'),
-    'package.json': read('templates/package.json.hbs')
-  },
-  partials: {
-    auth: read('partials/auth.js.hbs'),
-    utils: read('partials/utils.js.hbs'),
-    client: read('partials/client.js.hbs'),
-    resources: read('partials/resources.js.hbs')
-  },
-  helpers: {
-    stringify: require('javascript-stringify'),
-    dependencies: require('./lib/helpers/dependencies'),
-    requestSnippet: require('./lib/helpers/request-snippet'),
-    parametersSnippet: require('./lib/helpers/parameters-snippet')
+    '__init__.py.hbs': read('templates/__init__.py.hbs'),
+    'example.py.hbs': read('templates/example.py.hbs'),
+    'rpc_gae.py.hbs': read('templates/rpc_gae.py.hbs'),
+    'rpc_geventhttpclient.py.hbs': read('templates/rpc_geventhttpclient.py.hbs'),
+    'rpc_httplib.py.hbs': read('templates/rpc_httplib.py.hbs'),
+    'rpc_httplib2.py.hbs': read('templates/rpc_httplib2.py.hbs'),
+    'rpc_requests.py.hbs': read('templates/rpc_requests.py.hbs'),
+    'rpc_tornado.py.hbs': read('templates/rpc_tornado.py.hbs'),
+    'rpc_urlfetch.py.hbs': read('templates/rpc_urlfetch.py.hbs'),
+    'server_mock.py.hbs': read('templates/server_mock.py.hbs'),
+    'server_tornado.py.hbs': read('templates/server_tornado.py.hbs'),
+    'server_wsgi.py.hbs': read('templates/server_wsgi.py.hbs')
+   },
+   partials: {
+   },
+   helpers: {
+     stringify: require('javascript-stringify'),
+     flatPath: require('./lib/helpers/flatPath'),
+     fullPath: require('./lib/helpers/fullPath'),
+     getUriList: require('./lib/helpers/getUriList'),
+     importJson: require('./lib/helpers/importJson')
   }
 })
