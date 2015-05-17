@@ -1,3 +1,3 @@
 rm -fr igpy
-./bin/raml-client.js -l python -o igpy -e instagram-api.raml
+./bin/raml-python-generator.js  instagram-api.raml -o igpy
 echo == TEST COMPLETE, OUTPUT IS IN 'igpy'

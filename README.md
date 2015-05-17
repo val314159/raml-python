@@ -21,6 +21,6 @@ sh test.sh
 
 This will generate a bunch of python files in the directory 'igpy' for various python web clients and servers.
 
-For more details of what's generated, see the README.md in the language/python folder.
+For more details of what's generated, see the README.md in the './lib' folder.
 
 
