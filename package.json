@@ -63,7 +63,6 @@
     "standard": "^2.1.1"
   },
   "dependencies": {
-    "javascript-stringify": "^1.0.1",
     "raml-generator": "^0.1.3"
   }
 }

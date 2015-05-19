@@ -24,7 +24,6 @@ module.exports = generator({
   partials: {
   },
   helpers: {
-	    stringify: require('javascript-stringify'),
 	    fullPath: require('./lib/helpers/fullPath'),
 	    flatPath: require('./lib/helpers/flatPath'),
 	    getUriList: require('./lib/helpers/getUriList')
