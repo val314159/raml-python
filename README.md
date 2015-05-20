@@ -19,7 +19,7 @@ npm install raml-python -g
 
 Usage:
 ```
-  raml-python-generator.js api.raml --output api-client
+  raml-python-generator api.raml --output api-client
 
 Options:
   --version     Show version number                                    [boolean]
