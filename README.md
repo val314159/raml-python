@@ -7,21 +7,19 @@ This package uses [raml-client-generator](https://github.com/mulesoft/raml-clien
 
 ----
 
-### How to Install it
+### Installation (from npm)
 
-You probably just want to install the npm version, so type:
+You probably just want this, so type:
 
 ```sh
 npm install raml-python -g
 ```
 
-### How to Run it
+###  Invocation
 
 Usage:
 ```
-Generate Python API clients/servers from RAML
-
-  raml-python-generator api.raml --output api-client
+  raml-python-generator.js api.raml --output api-client
 
 Options:
   --version     Show version number                                    [boolean]
@@ -29,17 +27,19 @@ Options:
   -d, --data    Provide the path to JSON package information
 ```
 
-### How to Install it (from source)
+### Installation (from source)
 
 ```sh
 npm install . -g
 ```
 
-### How to Test it (from source)
+### Testability (from source)
 
 ```sh
 sh test.sh
 ```
+
+If it's all good, this will generate a bunch of python files in the directory './igpy/' for various python web clients and servers.
 
 This will generate a bunch of python files in the directory 'igpy' for various
  python web clients and servers.
