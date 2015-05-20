@@ -15,9 +15,7 @@ You probably just want this, so type:
 npm install raml-python -g
 ```
 
-###  Invocation
-
-Usage:
+### Usage (Command-line):
 ```
   raml-python-generator api.raml --output api-client
 
@@ -25,6 +23,14 @@ Options:
   --version     Show version number                                    [boolean]
   -o, --output  Output directory                                      [required]
   -d, --data    Provide the path to JSON package information
+```
+
+### Usage (inline javascript):
+
+```javascript
+var jsGenerator = require('raml-python')
+
+var output = jsGenerator(/* raml, data */)
 ```
 
 ### Installation (from source)
@@ -45,3 +51,7 @@ This will generate a bunch of python files in the directory 'igpy' for various
  python web clients and servers.
 
 For more details of what's generated, see the README.md in the './lib' folder.
+
+### License
+
+Apache License 2.0
