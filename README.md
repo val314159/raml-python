@@ -28,9 +28,9 @@ Options:
 ### Usage (inline javascript):
 
 ```javascript
-var jsGenerator = require('raml-python')
+var generator = require('raml-python');
 
-var output = jsGenerator(/* raml, data */)
+var output = generator(/* raml, data */);
 ```
 
 ### Installation (from source)
