@@ -1,9 +1,12 @@
 ## Raml->python generator
 ----
 
-This package uses [raml-client-generator](https://github.com/mulesoft/raml-client-generator)
- as a framework for generating macro files.  (You may also just use the language/python
- directory as a plug-in, if you're using more than just python)
+This package uses [raml-generator](
+https://github.com/mulesoft-labs/raml-generator)
+ as a framework for generating macro files.
+  (You may also just use the language/python
+ directory as a plug-in, if you're using more
+ than just python)
 
 ----
 
@@ -20,8 +23,8 @@ npm install raml-python -g
   raml-python-generator api.raml --output api-client
 
 Options:
-  --version     Show version number                                    [boolean]
-  -o, --output  Output directory                                      [required]
+  --version     Show version number  [boolean]
+  -o, --output  Output directory     [required]
   -d, --data    Provide the path to JSON package information
 ```
 
