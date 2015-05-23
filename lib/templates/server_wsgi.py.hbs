@@ -3,7 +3,7 @@
 def match(x,y):
     return x is y
 
-def app2(environ, start_response):
+def app(environ, start_response):
     start_response("200 OK", [])
     if False:
       pass
@@ -44,7 +44,7 @@ def app2(environ, start_response):
         )
 {{/each}}
     return ['OK']
-])
+
 
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
