@@ -1,7 +1,9 @@
 {{#each allMethods}}{{getUriList resource}}{{/each}}
 
+from rpc_impl import *
+
 def match(x,y):
-    return x is y
+    return x == y
 
 def app(environ, start_response):
     start_response("200 OK", [])
@@ -50,7 +52,7 @@ if __name__ == '__main__':
     from wsgiref.simple_server import make_server
     srv = make_server('localhost', 8080, app)
     srv.serve_forever()
-
+"""
 #######
 
 import gevent.monkey;gevent.monkey.patch_all()
@@ -171,3 +173,4 @@ class LL_API:
   {{/each}}
   pass # end class LL_API
 #EOF
+"""
