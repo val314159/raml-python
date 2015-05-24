@@ -1,5 +1,19 @@
 {{#each allMethods}}{{getUriList resource}}{{/each}}
 
+def wrongType(var,typ):
+    try:
+        if typ=='integer':
+            int(var)
+        elif typ=='number':
+            float(var)
+            pass
+        return False
+    except:
+        return True
+    pass
+
+true,false=True,False
+
 from rpc_impl import *
 
 def match(x,y):
