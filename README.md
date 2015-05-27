@@ -48,10 +48,11 @@ npm install . -g
 raml-python-generator example/simple.raml -o simple
 ```
 
-If it's all good, this will generate a bunch of python files in the directory './igpy/' for various python web clients and servers.
-
-This will generate a bunch of python files in the directory 'igpy' for various
+If it's all good, this will generate a python package in the directory 'simple' for various
  python web clients and servers.
+
+Try it out by running `python -msimple.server_wsgi` in one window,
+and `python example/run_client.py` in another.
 
 For more details of what's generated, see the README.md in the './lib' folder.
 
