@@ -46,6 +46,7 @@ npm install . -g
 
 ```sh
 raml-python-generator example/simple.raml -o simple
+cp example/rpc_impl.py simple
 ```
 
 If it's all good, this will generate a python package in the directory 'simple' for various
