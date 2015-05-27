@@ -4,9 +4,6 @@
 This package uses [raml-generator](
 https://github.com/mulesoft-labs/raml-generator)
  as a framework for generating macro files.
-  (You may also just use the language/python
- directory as a plug-in, if you're using more
- than just python)
 
 ----
 
