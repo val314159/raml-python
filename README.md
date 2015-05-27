@@ -45,7 +45,7 @@ npm install . -g
 ### Testability (from source)
 
 ```sh
-sh test.sh
+raml-python-generator example/simple.raml -o simple
 ```
 
 If it's all good, this will generate a bunch of python files in the directory './igpy/' for various python web clients and servers.
