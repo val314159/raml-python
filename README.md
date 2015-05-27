@@ -57,6 +57,8 @@ and `python example/run_client.py` in another.
 
 For more details of what's generated, see the README.md in the './lib' folder.
 
+Alternatively, check out The [Simplest RAML File](http://b.ccl.io/2015/05/24/simplest-raml-file).
+
 ### License
 
 Apache License 2.0
