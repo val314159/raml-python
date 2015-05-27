@@ -1,6 +1,6 @@
 {
   "name": "raml-python",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Generate Python API clients/servers from RAML",
   "main": "raml-python-generator.js",
   "files": [
