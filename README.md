@@ -1,4 +1,4 @@
-## Raml->python generator
+Raml-python generator
 ===
 
 This package uses [raml-generator](https://github.com/mulesoft-labs/raml-generator) as a framework for generating macro files.
