@@ -53,6 +53,9 @@ For more details of what's generated, see the README.md in the './lib' folder.
 
 Alternatively, check out The [Simplest RAML File](http://b.ccl.io/2015/05/24/simplest-raml-file).
 
+For an alternative language implementation (javascript), see 
+[https://github.com/mulesoft-labs/raml-javascript-generator](https://github.com/mulesoft-labs/raml-javascript-generator).
+
 ### License
 
 Apache License 2.0
